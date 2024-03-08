@@ -2,12 +2,14 @@
 import { useEffect, useState, Fragment } from 'react';
 import languages, { TLang } from './lib/lang';
 import Dropdown from './components/dropdown';
+import useVoice from './lib/useVoice';
 const defaultText =
   'Upon the crest of the hill, the weary traveler paused to catch his breath. The sun dipped low in the sky, casting long shadows across the landscape. In the distance, a faint whistle echoed through the valley, signaling the approach of the evening train.';
 
 export default function Home() {
   const [textToSpeak, updateTTS] = useState<string>(defaultText);
   const [lang, setLang] = useState<string>('ja-JP');
+  const { voices: matchingVoices } = useVoice(lang);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[] | undefined>(
     undefined
   );
@@ -15,45 +17,18 @@ export default function Home() {
     SpeechSynthesisVoice | undefined
   >(undefined);
 
-  function updateVoices(language: string): void {
-    const matchingVoices = getVoices(language);
-    if (matchingVoices && matchingVoices.length > 0) {
-      setVoices(matchingVoices);
-      setSelectedVoice(matchingVoices[0]);
-    }
-  }
-
   function onLangChange(language: TLang): void {
     setLang(language.id);
-    updateVoices(language.id);
   }
 
   useEffect(() => {
-    if (window.speechSynthesis) {
-      updateVoices(lang);
-      window.speechSynthesis.onvoiceschanged = () => {
-        updateVoices(lang);
-      };
-    } else {
-      console.error('Speech Synthesis not supported');
-    }
-  }, [lang]);
-
-  useEffect(() => {
-    return () => {
-      if (window.speechSynthesis) {
-        window.speechSynthesis.onvoiceschanged = null;
+    if (Array.isArray(matchingVoices) && matchingVoices.length > 0) {
+      {
+        setVoices(matchingVoices);
+        setSelectedVoice(matchingVoices[0]);
       }
-    };
-  }, []);
-
-  /** Returns all the voices available for a language */
-  function getVoices(lang: string): SpeechSynthesisVoice[] | undefined {
-    const synth = window.speechSynthesis;
-    const voices = synth.getVoices();
-    const voice = voices.filter((v) => v.lang === lang);
-    return voice;
-  }
+    }
+  }, [matchingVoices]);
 
   function speak(text: string): void {
     if (text.length === 0) return;
