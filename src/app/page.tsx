@@ -129,8 +129,8 @@ export default function Home() {
           Select a voice
         </div>
         <div className="items-center grid grid-cols-6">
-          {voices?.map((v) => (
-            <div className="flex items-center mb-4">
+          {voices?.map((v, i) => (
+            <div className="flex items-center mb-4" key={i}>
               <input
                 checked={selectedVoice === v}
                 onChange={() => setSelectedVoice(v)}
