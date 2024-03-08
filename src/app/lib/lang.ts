@@ -45,3 +45,8 @@ export default [
   { name: 'Czech (Czech Republic)', id: 'cs-CZ' },
   { name: 'Spanish (United States)', id: 'es-US' },
 ];
+
+export type TLang = {
+  name: string;
+  id: string;
+};
