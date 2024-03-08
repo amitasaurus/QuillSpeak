@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 const useVoice = (lang: string) => {
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[] | undefined>(
-    undefined
-  );
+  const [matchingVoices, setMatchingVoices] = useState<
+    SpeechSynthesisVoice[] | undefined
+  >(undefined);
 
   useEffect(() => {
     getVoices().then((voiceData) => {
-      setVoices(voiceData.filter((v) => v.lang === lang));
+      setMatchingVoices(voiceData.filter((v) => v.lang === lang));
     });
   }, [lang]);
 
@@ -26,6 +26,6 @@ const useVoice = (lang: string) => {
       }
     });
   }
-  return { voices };
+  return { matchingVoices };
 };
 export default useVoice;
