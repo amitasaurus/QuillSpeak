@@ -3,24 +3,24 @@ export default [
   { name: 'English (United States)', id: 'en-US' },
   { name: 'Italian (Italy)', id: 'it-IT' },
   { name: 'Swedish (Sweden)', id: 'sv-SE' },
-  { name: 'French (Canada)', id: 'fr-CA' },
+  { name: 'French (Canada)', id: 'fr-CA', test: 'Croissant' },
   { name: 'Malay (Malaysia)', id: 'ms-MY' },
   { name: 'German (Germany)', id: 'de-DE' },
   { name: 'English (United Kingdom)', id: 'en-GB' },
   { name: 'Hebrew (Israel)', id: 'he-IL' },
   { name: 'English (Australia)', id: 'en-AU' },
   { name: 'Indonesian (Indonesia)', id: 'id-ID' },
-  { name: 'French (France)', id: 'fr-FR' },
+  { name: 'French (France)', id: 'fr-FR', test: 'Croissant' },
   { name: 'Bulgarian (Bulgaria)', id: 'bg-BG' },
-  { name: 'Spanish (Spain)', id: 'es-ES' },
-  { name: 'Spanish (Mexico)', id: 'es-MX' },
+  { name: 'Spanish (Spain)', id: 'es-ES', test: 'Hola Amigo' },
+  { name: 'Spanish (Mexico)', id: 'es-MX', test: 'Hola Amigo' },
   { name: 'Finnish (Finland)', id: 'fi-FI' },
   { name: 'Portuguese (Brazil)', id: 'pt-BR' },
   { name: 'Dutch (Belgium)', id: 'nl-BE' },
-  { name: 'Japanese (Japan)', id: 'ja-JP' },
+  { name: 'Japanese (Japan)', id: 'ja-JP', test: 'McDonald' },
   { name: 'Romanian (Romania)', id: 'ro-RO' },
   { name: 'Portuguese (Portugal)', id: 'pt-PT' },
-  { name: 'Thai (Thailand)', id: 'th-TH' },
+  { name: 'Thai (Thailand)', id: 'th-TH', test: 'the weather is lovely' },
   { name: 'Croatian (Croatia)', id: 'hr-HR' },
   { name: 'Slovak (Slovakia)', id: 'sk-SK' },
   { name: 'Hindi (India)', id: 'hi-IN' },
@@ -43,10 +43,11 @@ export default [
   { name: 'Korean (South Korea)', id: 'ko-KR' },
   { name: 'Polish (Poland)', id: 'pl-PL' },
   { name: 'Czech (Czech Republic)', id: 'cs-CZ' },
-  { name: 'Spanish (United States)', id: 'es-US' },
+  { name: 'Spanish (United States)', id: 'es-US', test: 'Hola Amigo' },
 ];
 
 export type TLang = {
   name: string;
   id: string;
+  test?: string;
 };

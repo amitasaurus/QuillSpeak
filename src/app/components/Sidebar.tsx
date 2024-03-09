@@ -33,14 +33,12 @@ export default function Sidebar({
 
   useEffect(() => {
     if (Array.isArray(availableVoices) && availableVoices.length > 0) {
-      const last = availableVoices.pop();
-      if (last) availableVoices.unshift(last);
       setVoices(availableVoices);
       onVoiceChange(availableVoices[0]);
     }
   }, [availableVoices]);
   return (
-    <div className="flex flex-col w-full h-screen px-2 py-4 overflow-y-scroll">
+    <div className="flex flex-col w-full h-screen px-4 py-4 overflow-y-scroll">
       <div className="mt-2">
         <div className="mb-2 text-sm font-semibold text-slate-800">
           Select Language
@@ -106,18 +104,18 @@ export default function Sidebar({
           <div className="space-y-2">
             {Array.isArray(voices) &&
               voices.length > 0 &&
-              voices.reverse().map((voice) => (
+              voices.map((voice) => (
                 <RadioGroup.Option
                   key={voice.voiceURI}
                   value={voice}
                   className={({ active, checked }) =>
                     `${
                       active
-                        ? 'ring-2 ring-white/60 ring-offset-2 ring-offset-sky-300'
+                        ? 'ring-2 ring-white/60 ring-offset-2 ring-offset-slate-300'
                         : ''
                     }
-                  ${checked ? 'bg-sky-900/75 text-white' : 'bg-white'}
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                  ${checked ? 'bg-slate-800 text-white' : 'bg-white'}
+                    relative flex cursor-pointer rounded-lg px-3 py-2.5 shadow-md focus:outline-none`
                   }
                 >
                   {({ active, checked }) => (
@@ -127,7 +125,7 @@ export default function Sidebar({
                           <div className="text-sm">
                             <RadioGroup.Label
                               as="p"
-                              className={`font-medium  ${
+                              className={`font-normal  ${
                                 checked ? 'text-white' : 'text-gray-900'
                               }`}
                             >
@@ -137,7 +135,7 @@ export default function Sidebar({
                         </div>
                         {checked && (
                           <div className="text-white shrink-0">
-                            <CheckIcon className="w-6 h-6" />
+                            <CheckIcon className="w-4 h-4" />
                           </div>
                         )}
                       </div>

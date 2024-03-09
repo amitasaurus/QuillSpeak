@@ -20,18 +20,10 @@ export default function Home() {
     setSelectedVoice(voice);
   }
 
-  useEffect(() => {
-    if (Array.isArray(matchingVoices) && matchingVoices.length > 0) {
-      {
-        setSelectedVoice(matchingVoices[matchingVoices.length - 1]);
-      }
-    }
-  }, [matchingVoices]);
-
   function speak(text: string): void {
     if (text.length === 0) return;
     if ('speechSynthesis' in window) {
-      setPageContent(text);
+      // setPageContent(text);
       const to_speak = new SpeechSynthesisUtterance(text);
       if (selectedVoice) {
         to_speak.voice = selectedVoice;
@@ -42,8 +34,8 @@ export default function Home() {
   }
 
   return (
-    <main className="grid w-screen h-screen grid-cols-12">
-      <div className="col-span-3">
+    <main className="grid w-screen h-screen grid-cols-10">
+      <div className="col-span-2">
         <Sidebar
           lang={lang}
           handleLangChange={onLangChange}
@@ -51,7 +43,7 @@ export default function Home() {
           handleVoiceSelection={onVoiceChange}
         />
       </div>
-      <div className="flex items-start justify-center col-span-9 bg-white">
+      <div className="flex items-start justify-center col-span-8 bg-white">
         {pageContent.length === 0 ? (
           <UserInput speak={speak} />
         ) : (
