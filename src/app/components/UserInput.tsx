@@ -1,5 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Switch } from '@headlessui/react';
+import axios from 'axios';
+import { Readability } from '@mozilla/readability';
+
 type Props = {
   speak: (text: string) => void;
 };
@@ -8,8 +11,25 @@ export default function UserInput({ speak }: Props) {
   const [inputText, updateInputText] = useState('');
   const [isTTS, updateTTS] = useState<boolean>(true);
 
+  function parseHTML(htmlString: string): Document {
+    const parser = new DOMParser();
+    const htmlDocument = parser.parseFromString(htmlString, 'text/html');
+    return htmlDocument;
+  }
+  function parseContent(htmlDocument: Document): string {
+    const article = new Readability(htmlDocument).parse();
+    return article?.textContent ?? '';
+  }
+
   function handleSpeakAction() {
-    speak(inputText);
+    if (!isTTS) {
+      axios.get(inputText).then(({ data }) => {
+        const text = parseContent(parseHTML(data));
+        speak(text);
+      });
+    } else {
+      speak(inputText);
+    }
   }
 
   return (
@@ -50,6 +70,7 @@ export default function UserInput({ speak }: Props) {
       ) : (
         <div className="flex flex-col">
           <input
+            onChange={(e) => updateInputText(e.target.value)}
             type="url"
             name="web"
             id="web"
